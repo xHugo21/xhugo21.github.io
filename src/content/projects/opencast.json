@@ -1,0 +1,6 @@
+{
+  "title": "OpenCast",
+  "description": "Raycast extension that allows you to interact with OpenCode. It provides an interface to ask questions and manage your conversations directly from Raycast.",
+  "link": "https://github.com/xHugo21/opencast",
+  "order": 6
+}
