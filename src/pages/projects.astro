@@ -1,15 +1,15 @@
 ---
-import '@/styles/globals.css'
-import Layout from '../layouts/Layout.astro'
-import { getCollection } from 'astro:content'
+import "@/styles/globals.css";
+import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
 
-let projects = await getCollection('projects')
-projects = projects.sort((a, b) => a.data.order - b.data.order)
+let projects = await getCollection("projects");
+projects = projects.sort((a, b) => a.data.order - b.data.order);
 ---
 
 <Layout title="Projects - Hugo García">
   <main
-    class="px-8 py-8 md:min-h-screen md:flex md:items-center md:justify-center"
+    class="px-8 py-32 md:min-h-screen md:flex md:items-center md:justify-center"
   >
     <div class="w-full max-w-6xl mx-auto">
       <div class="space-y-8">
