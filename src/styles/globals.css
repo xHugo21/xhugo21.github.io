@@ -5,6 +5,27 @@
 @import "tailwindcss/utilities.css" layer(utilities);
 
 @layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    margin: 0;
+  }
+
   :root {
     --radius: 0;
   }
