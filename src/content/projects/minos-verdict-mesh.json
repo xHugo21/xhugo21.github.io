@@ -1,0 +1,6 @@
+{
+  "title": "Minos Verdict Mesh",
+  "description": "An AI modular firewall system designed to enforce security guardrails in interactions with LLMs. Utilizes a multiagent architecture for efficient, local detection and redaction of private data before it leaves the user's environment.",
+  "link": "https://github.com/xHugo21/minos-verdict-mesh",
+  "order": 1
+}
