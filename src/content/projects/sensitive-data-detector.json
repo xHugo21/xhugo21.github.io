@@ -1,6 +1,0 @@
-{
-  "title": "Minos Verdict Mesh",
-  "description": "A modular system designed to detect and prevent the leakage of sensitive information during user interactions with LLMs. Utilizes a multi-agent architecture for efficient, local detection and redaction of private data before it leaves the user's environment.",
-  "link": "https://github.com/xHugo21/sensitive-data-detector",
-  "order": 1
-}
