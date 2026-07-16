@@ -13,9 +13,9 @@
     "@astrojs/check": "^0.9.9",
     "@fontsource/crimson-pro": "^5.2.8",
     "@fontsource/inter": "^5.2.8",
-    "@tailwindcss/vite": "^4.1.13",
+    "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.1.0",
-    "tailwindcss": "^4.1.13",
-    "typescript": "^5.3.3"
+    "tailwindcss": "^4.3.3",
+    "typescript": "^7.0.2"
   }
 }
