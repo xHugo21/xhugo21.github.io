@@ -2,5 +2,5 @@
   "title": "rsvp.nvim",
   "description": "A Neovim plugin for Rapid Serial Visual Presentation. Read through text faster by flashing words one by one in a centered floating window, keeping your eyes focused on a single point.",
   "link": "https://github.com/xHugo21/rsvp.nvim",
-  "order": 5
+  "order": 6
 }
