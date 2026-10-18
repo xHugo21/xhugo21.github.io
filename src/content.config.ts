@@ -12,6 +12,10 @@ const projectsCollection = defineCollection({
   }),
 })
 
+const writeupsCollection = defineCollection({
+  loader: glob({ pattern: '*.md', base: './src/content/writeups' }),
+})
+
 const educationCollection = defineCollection({
   loader: glob({ pattern: '*.json', base: './src/content/education' }),
   schema: z.object({
@@ -34,6 +38,7 @@ const careerCollection = defineCollection({
 
 export const collections = {
   projects: projectsCollection,
+  writeups: writeupsCollection,
   education: educationCollection,
   career: careerCollection,
 }

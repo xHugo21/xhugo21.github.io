@@ -1,0 +1,52 @@
+---
+import '@/styles/globals.css'
+import { getCollection, render } from 'astro:content'
+import Layout from '../../layouts/Layout.astro'
+import ProjectTitle from '../../components/ProjectTitle.astro'
+
+const projects = await getCollection('projects')
+const projectById = new Map(projects.map((project) => [project.id, project]))
+
+export async function getStaticPaths() {
+  const writeups = await getCollection('writeups')
+
+  return writeups.map((entry) => ({
+    params: { id: entry.id },
+    props: { entry },
+  }))
+}
+
+const { entry } = Astro.props
+const project = projectById.get(entry.id)
+
+if (!project) {
+  throw new Error(`No project matches the "${entry.id}" writeup`)
+}
+
+const { Content } = await render(entry)
+---
+
+<Layout title={`${project.data.title} - Hugo García`}>
+  <main class="px-8 py-32">
+    <article class="mx-auto w-full max-w-3xl">
+      <a href="/projects" class="link text-small inline-block">← Back</a>
+
+      <header class="mt-10 space-y-4">
+        <ProjectTitle
+          title={project.data.title}
+          link={project.data.link}
+          as="h1"
+        />
+        <p
+          class="text-body text-text-secondary dark:text-text-secondary-dark leading-relaxed"
+        >
+          {project.data.description}
+        </p>
+      </header>
+
+      <div class="writeup mt-12">
+        <Content />
+      </div>
+    </article>
+  </main>
+</Layout>
