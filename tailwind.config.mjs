@@ -21,11 +21,7 @@ export default {
           '1.5rem',
           { lineHeight: '1.35', letterSpacing: '0' },
         ],
-        project: ['1.5rem', { lineHeight: '1.4', letterSpacing: '-0.01em' }],
-        'project-mobile': [
-          '1.25rem',
-          { lineHeight: '1.4', letterSpacing: '0' },
-        ],
+        project: ['1.17rem', { lineHeight: '1.4', letterSpacing: '-0.01em' }],
         body: ['1rem', { lineHeight: '1.7', letterSpacing: '0' }],
         small: ['0.875rem', { lineHeight: '1.6', letterSpacing: '0' }],
       },
