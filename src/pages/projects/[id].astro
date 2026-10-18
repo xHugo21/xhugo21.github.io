@@ -29,9 +29,8 @@ const { Content } = await render(entry)
 <Layout title={`${project.data.title} - Hugo García`}>
   <main class="px-8 py-32">
     <article class="mx-auto w-full max-w-3xl">
-      <a href="/projects" class="link text-small inline-block">← Back</a>
-
-      <header class="mt-10 space-y-4">
+      <header class="space-y-4">
+        <a href="/projects" class="link text-small inline-block">← Projects</a>
         <ProjectTitle
           title={project.data.title}
           link={project.data.link}
