@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content'
+import ProjectTitle from './ProjectTitle.astro'
 
 const projects = await getCollection('projects');
 const sortedProjects = projects.sort((a, b) => a.data.order - b.data.order);
@@ -14,24 +15,10 @@ const hasMore = sortedProjects.length > 3;
     {
       sortedProjects.map((project, index) => (
         <article class:list={['space-y-1', { 'md:hidden': index >= 3 }]}>
-          <h3 class="text-display-mobile md:text-display font-serif font-semibold">
-            {project.data.title}
-          </h3>
+          <ProjectTitle title={project.data.title} link={project.data.link} />
           <p class="text-body text-text-secondary dark:text-text-secondary-dark leading-relaxed max-w-prose">
             {project.data.description}
           </p>
-          {
-            project.data.link && (
-              <a
-                href={project.data.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="link text-small inline-block"
-              >
-                → View Project
-              </a>
-            )
-          }
         </article>
       ))
     }
