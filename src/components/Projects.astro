@@ -2,6 +2,10 @@
 import { getCollection } from 'astro:content'
 import ProjectTitle from './ProjectTitle.astro'
 
+const writeupIds = new Set(
+  (await getCollection('writeups')).map((writeup) => writeup.id),
+)
+
 const projects = await getCollection('projects');
 const sortedProjects = projects.sort((a, b) => a.data.order - b.data.order);
 const hasMore = sortedProjects.length > 3;
@@ -15,7 +19,11 @@ const hasMore = sortedProjects.length > 3;
     {
       sortedProjects.map((project, index) => (
         <article class:list={['space-y-1', { 'md:hidden': index >= 3 }]}>
-          <ProjectTitle title={project.data.title} link={project.data.link} />
+          <ProjectTitle
+            title={project.data.title}
+            link={project.data.link}
+            page={writeupIds.has(project.id) ? `/projects/${project.id}` : undefined}
+          />
           <p class="text-body text-text-secondary dark:text-text-secondary-dark leading-relaxed max-w-prose">
             {project.data.description}
           </p>

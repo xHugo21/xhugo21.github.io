@@ -6,6 +6,10 @@ import { getCollection } from "astro:content";
 
 let projects = await getCollection("projects");
 projects = projects.sort((a, b) => a.data.order - b.data.order);
+
+const writeupIds = new Set(
+  (await getCollection("writeups")).map((writeup) => writeup.id),
+);
 ---
 
 <Layout title="Projects - Hugo García">
@@ -28,6 +32,11 @@ projects = projects.sort((a, b) => a.data.order - b.data.order);
                 <ProjectTitle
                   title={project.data.title}
                   link={project.data.link}
+                  page={
+                    writeupIds.has(project.id)
+                      ? `/projects/${project.id}`
+                      : undefined
+                  }
                 />                <p class="text-body text-text-secondary dark:text-text-secondary-dark leading-relaxed max-w-prose">
                   {project.data.description}
                 </p>
