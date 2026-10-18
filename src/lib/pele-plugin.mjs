@@ -7,11 +7,21 @@ const escapeAttribute = (value) =>
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
 
-const named = (svg, name) =>
-  svg.replace(
+const openTag = (svg) => svg.slice(0, svg.indexOf('>') + 1)
+
+const labelled = (svg, name) => {
+  const attributes = openTag(svg)
+  const role = / role="/.test(attributes)
+    ? attributes.replace(/ role="[^"]*"/, ' role="img"')
+    : attributes.replace('<svg', '<svg role="img"')
+
+  const named = role.replace(
     '<svg',
     `<svg aria-label="${escapeAttribute(name)}"`,
   )
+
+  return named + svg.slice(openTag(svg).length)
+}
 
 const diagram = (node) => {
   let result
@@ -26,7 +36,7 @@ const diagram = (node) => {
 
   const name = node.meta?.trim() || `${result.type} diagram`
 
-  return `<figure class="diagram">${named(result.svg, name)}</figure>`
+  return `<figure class="diagram">${labelled(result.svg, name)}</figure>`
 }
 
 export const pelePlugin = {
