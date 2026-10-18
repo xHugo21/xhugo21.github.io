@@ -1,0 +1,5 @@
+{
+  "title": "Law in Force",
+  "description": "Citation-grounded legal assistant for Spanish law firms. Retrieves citable BOE and EURLex sources or states that the corpus does not cover the question, checks the citations in the answer before it reaches the user, and anonymises documents before they leave the firm's environment.",
+  "order": 2
+}

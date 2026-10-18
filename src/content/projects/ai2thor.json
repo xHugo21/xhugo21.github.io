@@ -2,5 +2,5 @@
   "title": "AI2THOR Task Planner",
   "description": "An interactive tool for generating and executing household task plans in the iTHOR simulation environment, leveraging automated planning and computer vision to enable intelligent agent behavior.",
   "link": "https://github.com/xHugo21/ai2thor-task-planner",
-  "order": 2
+  "order": 4
 }
