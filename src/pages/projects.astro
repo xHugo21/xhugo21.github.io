@@ -30,14 +30,18 @@ projects = projects.sort((a, b) => a.data.order - b.data.order);
                 <p class="text-body text-text-secondary dark:text-text-secondary-dark leading-relaxed max-w-prose">
                   {project.data.description}
                 </p>
-                <a
-                  href={project.data.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="link text-small inline-block"
-                >
-                  → View Project
-                </a>
+                {
+                  project.data.link && (
+                    <a
+                      href={project.data.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="link text-small inline-block"
+                    >
+                      → View Project
+                    </a>
+                  )
+                }
               </article>
             ))
           }
