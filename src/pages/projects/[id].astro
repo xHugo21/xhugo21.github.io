@@ -29,7 +29,7 @@ const { Content } = await render(entry)
 <Layout title={`${project.data.title} - Hugo García`}>
   <main class="px-8 pt-12 pb-32 md:py-32">
     <article class="mx-auto w-full max-w-3xl">
-      <header class="space-y-4">
+      <header "space-y-4">
         <a href="/" class="link text-small inline-block md:hidden">← Home</a>
         <a href="/projects" class="link text-small hidden md:inline-block"
           >← Projects</a
@@ -39,14 +39,9 @@ const { Content } = await render(entry)
           link={project.data.link}
           as="h1"
         />
-        <p
-          class="text-body text-text-secondary dark:text-text-secondary-dark leading-relaxed"
-        >
-          {project.data.description}
-        </p>
       </header>
 
-      <div class="writeup mt-12">
+      <div class="writeup mt-5">
         <Content />
       </div>
     </article>
