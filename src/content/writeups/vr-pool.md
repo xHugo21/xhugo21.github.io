@@ -16,10 +16,9 @@ The tooling splits along the same lines. Free options come down to Unity's perso
 radar-beta
   title Delivery options at a glance
   axis fidelity["Fidelity"], portable["Portability"], cheap["Low cost"], setup["Fast on-site setup"], mr["Quest / MR support"]
-  curve tethered["Tethered PCVR"]{5, 1, 2, 1, 4}
-  curve standalone["Standalone Quest 3"]{3, 5, 5, 5, 5}
-  curve webxr["WebXR"]{1, 4, 5, 4, 2}
-  curve platform["Subscription platform"]{4, 3, 1, 3, 4}
+  curve tethered["Tethered - PCVR"]{5, 1, 2, 1, 4}
+  curve standalone["Untethered - Unity"]{3, 5, 5, 5, 5}
+  curve webxr["Untethered - WebXR"]{1, 4, 5, 4, 2}
   max 5
 ```
 
