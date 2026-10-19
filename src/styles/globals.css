@@ -126,7 +126,7 @@
   }
 
   .diagram svg {
-    @apply mx-auto;
+    @apply block mx-auto;
   }
 }
 
