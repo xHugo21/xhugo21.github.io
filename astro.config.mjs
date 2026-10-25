@@ -5,6 +5,7 @@ import { pelePlugin } from './src/lib/pele-plugin.mjs'
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://hugogarcia.eu',
   markdown: {
     processor: satteri({ mdastPlugins: [pelePlugin] }),
     shikiConfig: { themes: { light: 'github-light', dark: 'github-dark' } },
