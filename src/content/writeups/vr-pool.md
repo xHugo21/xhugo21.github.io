@@ -2,6 +2,20 @@ Buying a pool is not an easy decision as it requires a big investment. The usual
 
 VR Pool Visualiser puts the pool in the customer's actual garden. On a Meta Quest 3 the app runs in passthrough, so the pool is composited into the real lawn and the customer walks around it and stands at the waterline before any concrete is poured. They can move it, reshape it, fill it with water, and change the finish, coping and model on the spot.
 
+<figure class="writeup-video">
+  <video
+    src="/videos/vr-pool-demo.mp4"
+    poster="/videos/vr-pool-demo-poster.jpg"
+    autoplay
+    loop
+    muted
+    controls
+    playsinline
+    preload="metadata"
+    aria-label="Meta Quest 3 passthrough capture of the VR Pool Visualiser placing a pool in a real garden, changing its finish and reshaping it from round to an L-shape"
+  ></video>
+</figure>
+
 ## Why Unity
 
 The most important architectural decision is how will the app be developed. Based on the current options for development on Meta Quest 3 virtual headset, the two ends of that choice come down to choosing between tethered and untethered, and they trade very different things.

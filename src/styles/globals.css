@@ -128,6 +128,15 @@
   .diagram svg {
     @apply block mx-auto;
   }
+
+  .writeup-video {
+    @apply my-10;
+    margin-inline: calc((100% - min(100vw - 2rem, 80rem)) / 2);
+  }
+
+  .writeup-video video {
+    @apply block w-full h-auto bg-border dark:bg-border-dark;
+  }
 }
 
 @media (width < 48rem) {
