@@ -8,6 +8,7 @@ const projectsCollection = defineCollection({
     title: z.string(),
     description: z.string(),
     link: z.string().optional(),
+    arxiv: z.url().optional(),
     order: z.number(),
   }),
 })

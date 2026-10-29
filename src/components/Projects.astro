@@ -22,6 +22,7 @@ const hasMore = sortedProjects.length > 3;
           <ProjectTitle
             title={project.data.title}
             link={project.data.link}
+            arxiv={project.data.arxiv}
             page={writeupIds.has(project.id) ? `/projects/${project.id}` : undefined}
           />
           <p class="text-body text-text-secondary dark:text-text-secondary-dark leading-relaxed max-w-prose">

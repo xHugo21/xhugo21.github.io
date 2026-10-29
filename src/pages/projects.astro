@@ -32,6 +32,7 @@ const writeupIds = new Set(
                 <ProjectTitle
                   title={project.data.title}
                   link={project.data.link}
+                  arxiv={project.data.arxiv}
                   page={
                     writeupIds.has(project.id)
                       ? `/projects/${project.id}`
