@@ -48,6 +48,25 @@ const size =
     )
   }
   {
+    page && link && (
+      <a
+        href={link}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="group ml-2 inline-block text-inherit no-underline hover:underline"
+      >
+        <svg
+          viewBox="0 0 16 16"
+          aria-hidden="true"
+          class="inline-block size-[0.6em] fill-current align-baseline opacity-40 transition-opacity group-hover:opacity-70"
+        >
+          <path d={GITHUB_PATH} />
+        </svg>
+        <span class="sr-only">on GitHub</span>
+      </a>
+    )
+  }
+  {
     arxiv && (
       <a
         href={arxiv}
