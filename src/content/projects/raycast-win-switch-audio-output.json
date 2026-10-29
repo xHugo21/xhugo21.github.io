@@ -2,5 +2,5 @@
   "title": "Audio Output Switcher for Raycast",
   "description": "A Raycast extension for Windows that allows to quickly switch between audio output devices.",
   "link": "https://github.com/xHugo21/raycast-win-switch-audio-output",
-  "order": 6
+  "order": 7
 }
