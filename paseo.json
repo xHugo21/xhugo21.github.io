@@ -1,0 +1,14 @@
+{
+  "worktree": {
+    "setup": ["npm ci"]
+  },
+  "scripts": {
+    "dev": {
+      "type": "service",
+      "command": "npm run dev -- --host \"$HOST\" --port \"$PASEO_PORT\""
+    },
+    "build": {
+      "command": "npm run build"
+    }
+  }
+}
