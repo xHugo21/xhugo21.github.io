@@ -2,5 +2,5 @@
   "title": "globtrotter.nvim",
   "description": "A Neovim plugin that detects glob patterns under your cursor and shows matching files in an LSP-style floating window.",
   "link": "https://github.com/xHugo21/globtrotter.nvim",
-  "order": 8
+  "order": 9
 }
