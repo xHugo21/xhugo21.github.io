@@ -4,15 +4,16 @@ It exists because the hardest part of learning alone is not finding an explanati
 
 ## The idea
 
-The idea this project is built around arises from amosblomqvist’s [learn](https://github.com/amosblomqvist/learn) repository which implements the learning harness. After seeing [LearnHarness](https://github.com/amosblomqvist/learnharness), his official app implementation, I decided to build my own alternative instead. The main aspects that led me to this decision were:
-- App size and UI / UX: LearnHarness architecture was built around Electron which provides support for different platforms but feels slow and takes a lot of disk and RAM usage. Additionally I wasn't a fan of the look and feel of the app.
-- Setup: I wanted something that could inherit my coding agent credentials and settings so a change in those could be automatically updated on my learning platform.
-- Reusing the harness: Apart from being one of the most efficient coding harnesses, pi is a well documented, actively maintained and MIT licensed project which was the perfect fit for a project like this. 
-- Minimum memory and token savings: LearnHarness implements a memory system for building graphs and keeping different sessions updated on what does the user already know. For most people this is a great feature but the costs it can lead to in token usage were not worth it.
+The idea behind this project comes from amosblomqvist’s [learn](https://github.com/amosblomqvist/learn) repository, which implements the learning harness. After seeing [LearnHarness](https://github.com/amosblomqvist/learnharness), his official app implementation, I decided to build my own alternative instead. The main reasons were:
+
+- **App size and UI/UX:** LearnHarness is built on Electron. That gives it cross-platform support, but it feels slow and uses a lot of disk space and RAM. I was also not a fan of its look and feel.
+- **Setup:** I wanted something that could inherit my coding-agent credentials and settings, so changes there would carry over automatically to my learning app.
+- **Reusing the harness:** Besides being one of the most efficient coding harnesses, pi is well documented, actively maintained and MIT-licensed, which made it a natural fit for a project like this.
+- **Memory and token costs:** LearnHarness implements a memory system that builds graphs and keeps sessions updated on what the user already knows. For many people that is a great feature, but the token cost it adds was not worth it to me.
 
 ## The loop
 
-Ludus is built around the above mentioned learning loop: probe, plan, teach. The probe is not a quiz for its own sake. It locates your frontier, with a floor and a ceiling for each strand, so the plan starts from evidence rather than from the topic name. The probe ends with a structured assessment, not a paragraph of encouragement: here is the goal, here is what you already have, here is where you fall short, and here is what to build from. Note: The different prompts used for the loop steps were rewritten from scratch to comply with 
+Ludus is built around the learning loop described above: probe, plan, teach. The probe is not a quiz for its own sake. It locates your frontier, with a floor and a ceiling for each strand, so the plan starts from evidence rather than from the topic name. The probe ends with a structured assessment, not a paragraph of encouragement: here is the goal, here is what you already have, here is where you fall short, and here is what to build from. Note: the prompts used for the loop steps were rewritten from scratch to comply with LearnHarness’s AGPL-3.0 license.
 
 The plan is authored once as a dependency graph. Each edge means “this must be understood before that”, and the graph is validated as a DAG before it is accepted. Progress is not a checkbox. Current, visited and upcoming nodes are derived from the questions that carry a `nodeId`, so the lesson can move without the model declaring victory. A failure keeps you on the same node until the step is repaired.
 
