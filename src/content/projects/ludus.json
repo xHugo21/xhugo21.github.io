@@ -1,0 +1,6 @@
+{
+  "title": "Ludus",
+  "description": "A native macOS tutor built on the Pi agent loop, designed around diagnosis, a dependency-graph plan, and committed questions graded before the lesson advances.",
+  "link": "https://github.com/xhugo21/ludus",
+  "order": 0
+}
