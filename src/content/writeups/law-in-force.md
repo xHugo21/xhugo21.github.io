@@ -40,6 +40,10 @@ swimlane-beta LR
   check -->|No| withheld
 ```
 
+## Deterministic helpers
+
+Not every legal task should go through a model. Deadlines and money are arithmetic over rules that change with the statute, the court calendar and the official parameter in force, so Law in Force moves them out of the model and into two small deterministic services. `plazos` computes 30 procedural deadlines across civil, social, administrative, criminal and constitutional practice from versioned rules and calendars; `calc` covers dismissal, settlement, back pay, interest, IPC and loan amortisation from a versioned registry of official parameters such as SMI, IPREM, legal interest and IPC. Both are pure engines called as tools: the model never invents a date or an amount, a missing year, calendar or local holiday fails closed instead of being interpolated, and each service keeps its own SQLite store so an execution can be reproduced and audited without touching the `legal_rag` PostgreSQL. The model explains the result; the engines decide it.
+
 ## MCPs
 
 Two MCP servers give the assistant the material that is not in the corpus. The first fronts CENDOJ, the Spanish case-law service: `buscar_jurisprudencia` runs a search over resolutions and `obtener_texto_resolucion` fetches the full text of a hit. This architectural decision comes from the stricter terms of use that CENDOJ has against scraping and massive downloading.
@@ -75,36 +79,34 @@ Configuring the provider is a base URL and a key; adding a capability is registe
 
 Seen at container level, the assistant is a few self-hosted services around a chat
 harness. The provider supplies the model and the harness executes the run, but the
-corpus, the vector store, the cache and the scrapers stay on the firm's side, and only
-redacted text crosses to the provider.
+corpus, the vector store, the deadline rules, the calculators and the caches stay on
+the firm's side, and only redacted text crosses to the provider.
 
 ```mermaid Law in Force containers
-C4Container
-  title Law in Force containers
-  Person(lawyer, "Lawyer")
-  System_Ext(provider, "LLM provider", "Orchestrates the run, never sees privileged text")
-  System_Ext(cendojSite, "CENDOJ website")
-  System_Ext(catastroSite, "Catastro web services", "INSPIRE · OVC · sede")
+architecture-beta
+  group firm[Firm isolated space]
 
-  Container(ui, "Open WebUI", "Chat harness", "Recommended front end; registers tools and drives the loop")
-  Container(rag, "legal_rag", "HTTP service", "retrieve → rerank → gate")
-  Container(verify, "verify", "HTTP service", "Resolves every citation deterministically")
-  Container(anon, "anon", "HTTP sidecar", "Redacts documents outbound, restores placeholders inbound")
-  ContainerDb(db, "PostgreSQL + pgvector", "Vector store")
+  service lawyer(internet)[Lawyer]
+  service ui(server)[Open WebUI] in firm
+  service provider(cloud)[LLM provider]
+  service anon(server)[anon] in firm
+  service verify(server)[verify] in firm
+  service rag(server)[legal_rag] in firm
+  service plazos(server)[plazos] in firm
+  service calc(server)[calc] in firm
+  service cendoj(server)[cendoj MCP] in firm
+  service catastro(server)[catastro MCP] in firm
 
-  Container_Boundary(mcp, "MCP gateway") {
-    Container(cendoj, "cendoj MCP", "Playwright scraper", "buscar_jurisprudencia, obtener_texto_resolucion")
-    Container(catastro, "catastro MCP", "Scraper + SQLite cache", "parcela_local, vecinas, ficha, por_coordenada")
-  }
+  align row lawyer ui
+  align row anon verify rag plazos calc cendoj catastro
 
-  Rel(lawyer, ui, "Asks legal questions")
-  Rel(ui, anon, "Redaction round trip", "PUT /process")
-  Rel(ui, provider, "Chat completions", "HTTPS")
-  Rel(ui, rag, "Retrieval", "POST /v1/legal-rag/sources")
-  Rel(ui, verify, "Checks the answer", "POST /v1/verify")
-  Rel(rag, db, "Reads", "SQL")
-  Rel(ui, cendoj, "Spanish case law", "MCP")
-  Rel(ui, catastro, "Cadastral data", "MCP")
-  Rel(cendoj, cendojSite, "Scrapes")
-  Rel(catastro, catastroSite, "Queries")
+  lawyer:R --> L:ui
+  ui:T --> B:provider
+  ui:B --> T:anon
+  ui:B --> T:verify
+  ui:B --> T:rag
+  ui:B --> T:plazos
+  ui:B --> T:calc
+  ui:B --> T:cendoj
+  ui:B --> T:catastro
 ```
