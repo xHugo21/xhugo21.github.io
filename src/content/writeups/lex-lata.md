@@ -1,6 +1,8 @@
 A general chat model is the wrong tool for a legal question. Publicly available LLM chatbots are trained over an outdated corpus and either rely on external tools like web search or fetch, sometimes leaning towards hallucinating an inaccurate response. For a law firm, the cost of being wrong is far too high to rely on probabilistic guesses or unverified sources when client outcomes demand verifiable, authoritative precedent.
 
-Law in Force is an assistant built around that constraint. It relies on a series of tools that ground every response in real-time statutory databases and verified primary sources.
+Lex Lata is an assistant built around that constraint. It relies on a series of tools that ground every response in real-time statutory databases and verified primary sources.
+
+In Latin, *lex lata* means "the law as it stands", as opposed to *lex ferenda*, "the law as it should be".
 
 ## Legal RAG
 
@@ -12,7 +14,7 @@ Legal RAG turns a legal question into the passages that should decide the answer
 
 A verification gate has been developed to double check the returning content from an LLM, which even under specific guidelines and sources can hallucinate. `verify` resolves the citations deterministically, which means a fabricated reference is caught by the same kind of code that would catch a broken link, not by a judge that can itself be talked out of a decision.
 
-```mermaid Law in Force request lifecycle
+```mermaid Lex Lata request lifecycle
 swimlane-beta LR
   subgraph Lawyer
     ask[Legal question]
@@ -42,7 +44,7 @@ swimlane-beta LR
 
 ## Deterministic helpers
 
-Not every legal task should go through a model. Deadlines and money are arithmetic over rules that change with the statute, the court calendar and the official parameter in force, so Law in Force moves them out of the model and into two small deterministic services. `plazos` computes 30 procedural deadlines across civil, social, administrative, criminal and constitutional practice from versioned rules and calendars; `calc` covers dismissal, settlement, back pay, interest, IPC and loan amortisation from a versioned registry of official parameters such as SMI, IPREM, legal interest and IPC. Both are pure engines called as tools: the model never invents a date or an amount, a missing year, calendar or local holiday fails closed instead of being interpolated, and each service keeps its own SQLite store so an execution can be reproduced and audited without touching the `legal_rag` PostgreSQL. The model explains the result; the engines decide it.
+Not every legal task should go through a model. Deadlines and money are arithmetic over rules that change with the statute, the court calendar and the official parameter in force, so Lex Lata moves them out of the model and into two small deterministic services. `plazos` computes 30 procedural deadlines across civil, social, administrative, criminal and constitutional practice from versioned rules and calendars; `calc` covers dismissal, settlement, back pay, interest, IPC and loan amortisation from a versioned registry of official parameters such as SMI, IPREM, legal interest and IPC. Both are pure engines called as tools: the model never invents a date or an amount, a missing year, calendar or local holiday fails closed instead of being interpolated, and each service keeps its own SQLite store so an execution can be reproduced and audited without touching the `legal_rag` PostgreSQL. The model explains the result; the engines decide it.
 
 ## MCPs
 
@@ -52,7 +54,7 @@ The second one fronts the cadastral registry. It exposes `parcela_local` for the
 
 ## Keeping documents inside the firm
 
-Law in Force is built for Spanish law firms, which already have to comply with the GDPR and the EU AI Act when they handle client material. The anonymisation here is not a substitute for that compliance, it is an extra layer on top of it. Even when a firm is allowed to send material to a provider under its own agreements, the assistant removes the client names before the request leaves and restores them once the answer comes back, so the protection does not depend on the provider's terms.
+Lex Lata is built for Spanish law firms, which already have to comply with the GDPR and the EU AI Act when they handle client material. The anonymisation here is not a substitute for that compliance, it is an extra layer on top of it. Even when a firm is allowed to send material to a provider under its own agreements, the assistant removes the client names before the request leaves and restores them once the answer comes back, so the protection does not depend on the provider's terms.
 
 ```mermaid Keeping documents inside the firm
 sequenceDiagram
@@ -82,7 +84,7 @@ harness. The provider supplies the model and the harness executes the run, but t
 corpus, the vector store, the deadline rules, the calculators and the caches stay on
 the firm's side, and only redacted text crosses to the provider.
 
-```mermaid Law in Force containers
+```mermaid Lex Lata containers
 architecture-beta
   group firm[Firm isolated space]
 
