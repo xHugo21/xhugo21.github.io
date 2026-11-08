@@ -2,6 +2,8 @@ A general chat model is the wrong tool for a legal question. Publicly available 
 
 Lex Lata is an assistant built around that constraint. It relies on a series of tools that ground every response in real-time statutory databases and verified primary sources.
 
+In Latin, *lex lata* means "the law as it stands", as opposed to *lex ferenda*, "the law as it should be".
+
 ## Legal RAG
 
 Retrieval-augmented generation is the practice of handing a model the material it needs to answer instead of trusting that the answer is already somewhere in its weights. A general model is trained once and frozen, so it goes stale, and it has no built-in way to show where a claim came from. Retrieval closes both gaps: before the model writes anything, the system fetches the passages that matter from a source it controls and puts them in front of it, so the answer is grounded in material that can be updated, cited and checked.
