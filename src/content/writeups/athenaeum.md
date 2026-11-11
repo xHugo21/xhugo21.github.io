@@ -8,8 +8,9 @@ The other alternatives solve different problems. [Goodreads](https://www.goodrea
 
 athenaeum deliberately stays on the smaller side of that line. One reader, one container, one SQLite file. It is not where the EPUBs live; it is where the reading evidence lives. It is small enough to run on a home server, a NAS or a Raspberry Pi alongside other services, not to become another service to administer.
 
-<figure class="writeup-video">
+<figure class="writeup-video writeup-video-pair">
   <video
+    class="writeup-video-desktop"
     src="/videos/athenaeum-demo.mp4"
     poster="/videos/athenaeum-demo-poster.jpg"
     autoplay
@@ -18,7 +19,19 @@ athenaeum deliberately stays on the smaller side of that line. One reader, one c
     controls
     playsinline
     preload="metadata"
-    aria-label="Walkthrough of athenaeum: searching the library, opening a book, browsing the shelf view, reading the stats page, and switching to dark mode"
+    aria-label="Walkthrough of athenaeum: filtering the library by label, the shelf view, a book with reading speed and time left, its highlights, the to-read list, label management, reading statistics and the calendar"
+  ></video>
+  <video
+    class="writeup-video-mobile"
+    src="/videos/athenaeum-demo-mobile.mp4"
+    poster="/videos/athenaeum-demo-mobile-poster.jpg"
+    autoplay
+    loop
+    muted
+    controls
+    playsinline
+    preload="metadata"
+    aria-label="The library, a book with reading speed and time left, its highlights, the to-read list and the stats page at phone width, in dark mode"
   ></video>
 </figure>
 

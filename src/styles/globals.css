@@ -137,6 +137,28 @@
   .writeup-video video {
     @apply block w-full h-auto bg-border dark:bg-border-dark;
   }
+
+  .writeup-video-pair {
+    @apply flex items-center justify-center gap-4;
+  }
+
+  .writeup-video-pair .writeup-video-desktop {
+    @apply min-w-0;
+  }
+
+  .writeup-video-pair .writeup-video-mobile {
+    @apply w-[22%] max-w-44 shrink-0;
+  }
+}
+
+@media (width < 40rem) {
+  .writeup-video-pair {
+    @apply flex-col;
+  }
+
+  .writeup-video-pair .writeup-video-mobile {
+    @apply w-1/2 max-w-56;
+  }
 }
 
 @media (width < 48rem) {
