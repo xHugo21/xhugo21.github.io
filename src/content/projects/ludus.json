@@ -1,6 +1,6 @@
 {
   "title": "Ludus",
-  "description": "A native macOS and iOS tutor built on an in-process Swift lesson engine, designed around diagnosis, a dependency-graph plan, and committed questions graded before the lesson advances.",
+  "description": "Lightweight and native macOS and iOS AI tutor.",
   "site": "https://ludusapp.pages.dev",
   "order": 4
 }
