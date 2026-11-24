@@ -1,5 +1,6 @@
 {
   "title": "Ludus",
-  "description": "A native macOS tutor built on the Pi agent loop, designed around diagnosis, a dependency-graph plan, and committed questions graded before the lesson advances.",
+  "description": "A native macOS and iOS tutor built on an in-process Swift lesson engine, designed around diagnosis, a dependency-graph plan, and committed questions graded before the lesson advances.",
+  "site": "https://ludusapp.pages.dev",
   "order": 4
 }
