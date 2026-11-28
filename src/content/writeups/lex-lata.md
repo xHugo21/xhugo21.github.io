@@ -1,6 +1,6 @@
 A general chat model is the wrong tool for a legal question. Publicly available LLM chatbots are trained over an outdated corpus and either rely on external tools like web search or fetch, sometimes leaning towards hallucinating an inaccurate response. For a law firm, the cost of being wrong is far too high to rely on probabilistic guesses or unverified sources when client outcomes demand verifiable, authoritative precedent.
 
-Lex Lata is an assistant built around that constraint. It relies on a series of tools that ground every response in real-time statutory databases and verified primary sources.
+Lex Lata is an assistant built around that constraint. It relies on a series of tools that ground every response in real-time statutory databases, official statistics and verified primary sources.
 
 In Latin, *lex lata* means "the law as it stands", as opposed to *lex ferenda*, "the law as it should be".
 
@@ -44,13 +44,15 @@ swimlane-beta LR
 
 ## Deterministic helpers
 
-Not every legal task should go through a model. Deadlines and money are arithmetic over rules that change with the statute, the court calendar and the official parameter in force, so Lex Lata moves them out of the model and into two small deterministic services. `plazos` computes 30 procedural deadlines across civil, social, administrative, criminal and constitutional practice from versioned rules and calendars; `calc` covers dismissal, settlement, back pay, interest, IPC and loan amortisation from a versioned registry of official parameters such as SMI, IPREM, legal interest and IPC. Both are pure engines called as tools: the model never invents a date or an amount, a missing year, calendar or local holiday fails closed instead of being interpolated, and each service keeps its own SQLite store so an execution can be reproduced and audited without touching the `legal_rag` PostgreSQL. The model explains the result; the engines decide it.
+Not every legal task should go through a model. Deadlines and money are arithmetic over rules that change with the statute, the court calendar and the official parameter in force, so Lex Lata moves them out of the model and into two small deterministic services. `plazos` computes 30 procedural deadlines across civil, social, administrative, criminal and constitutional practice from versioned rules and calendars; `calc` covers dismissal, settlement, back pay, interest, IPC and loan amortisation from a versioned registry of official parameters such as SMI, IPREM, legal interest and IPC. Both are pure engines called as tools: the model never invents a date or an amount, a missing year, calendar or local holiday fails closed instead of being interpolated, and each service keeps its own SQLite store so an execution can be reproduced and audited without touching the `legal_rag` PostgreSQL. The registry is the only way a figure enters a calculation: when a new IPC or SMI value has to be recorded, it is read from the INE's statistics server and stored with its source and URL, so the engine still computes offline over a frozen value while the citation stays traceable. The model explains the result; the engines decide it.
 
 ## MCPs
 
-Two MCP servers give the assistant the material that is not in the corpus. The first fronts CENDOJ, the Spanish case-law service: `buscar_jurisprudencia` runs a search over resolutions and `obtener_texto_resolucion` fetches the full text of a hit. This architectural decision comes from the stricter terms of use that CENDOJ has against scraping and massive downloading.
+Three MCP servers give the assistant the material that is not in the corpus. The first fronts CENDOJ, the Spanish case-law service: `buscar_jurisprudencia` runs a search over resolutions and `obtener_texto_resolucion` fetches the full text of a hit. This architectural decision comes from the stricter terms of use that CENDOJ has against scraping and massive downloading.
 
 The second one fronts the cadastral registry. It exposes `parcela_local` for the plot at a location, `vecinas` for the neighbouring parcels, `ficha` for the official record and `por_coordenada` to resolve coordinates to a parcel, with `descargar_municipio` pulling a whole municipality at once. The public services it calls are slow and rate-limited, so the server keeps a SQLite cache on the firm's side: a plot requested once is answered from `/data` the next time instead of being fetched again.
+
+The third covers official statistics. It is the INE's own MCP server for its public JSON API, ported into the assistant instead of reimplemented: the gateway mounts it next to the other two, under `/ine/`, and it shares their bearer token, so a new legal capability costs a route and not a container. Each answer carries the operation, the table, the table's public URL and the filters applied, which is the whole point — a figure without that trail is not citable in a filing. The flow is fixed at five steps (operation, tables, variables, values, data) and the server rejects the step that was skipped; it does not rank by relevance, so the model picks by reading the names. Scope is deliberate too: it tells inflation from unemployment, not the amount of a settlement. That stays in `calc`.
 
 ## Keeping documents inside the firm
 
@@ -98,9 +100,10 @@ architecture-beta
   service calc(server)[calc] in firm
   service cendoj(server)[cendoj MCP] in firm
   service catastro(server)[catastro MCP] in firm
+  service ine(server)[ine MCP] in firm
 
   align row lawyer ui
-  align row anon verify rag plazos calc cendoj catastro
+  align row anon verify rag plazos calc cendoj catastro ine
 
   lawyer:R --> L:ui
   ui:T --> B:provider
@@ -111,4 +114,5 @@ architecture-beta
   ui:B --> T:calc
   ui:B --> T:cendoj
   ui:B --> T:catastro
+  ui:B --> T:ine
 ```
